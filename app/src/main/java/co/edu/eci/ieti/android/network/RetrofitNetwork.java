@@ -3,6 +3,7 @@ package co.edu.eci.ieti.android.network;
 import java.io.IOException;
 
 import co.edu.eci.ieti.android.network.service.AuthService;
+import co.edu.eci.ieti.android.network.service.TaskService;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -17,7 +18,7 @@ public class RetrofitNetwork
 {
     private final String BASE_URL="http:/10.0.2.2:8080/";
     private AuthService authService;
-
+    private TaskService taskService;
 
     public RetrofitNetwork()
     {
@@ -53,5 +54,10 @@ public class RetrofitNetwork
         Retrofit retrofit =
                 new Retrofit.Builder().baseUrl( BASE_URL ).addConverterFactory( GsonConverterFactory.create() ).client(
                         httpClient.build() ).build();
+        taskService = retrofit.create(TaskService.class);
+    }
+
+    public TaskService getTaskService() {
+        return taskService;
     }
 }
